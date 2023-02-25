@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &89876654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 89876656}
+  - component: {fileID: 89876655}
+  m_Layer: 0
+  m_Name: GridSystemVisual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &89876655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89876654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c02b94095b2354429978ca68f709245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridSystemVisualPrefab: {fileID: 309307879953919896, guid: 7fb234f490370e948acae9dc2fe7ccff,
+    type: 3}
+--- !u!4 &89876656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89876654}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.4027672, y: -1.0134239, z: 1.3358912}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &122737282
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,6 +198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38fdb52bdbcbafc4c9d27e41e9d18123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridSystemVisual: {fileID: 89876655}
+  unit: {fileID: 1610795349}
 --- !u!4 &122737284
 Transform:
   m_ObjectHideFlags: 0
@@ -328,8 +376,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.42414817, y: 0.0000000106152225, z: -0.000000004971802, w: 0.90559286}
-  m_LocalPosition: {x: 0, y: 11.99961, z: -10}
+  m_LocalRotation: {x: 0.42413607, y: 0.000000015582074, z: -0.000000007297848, w: 0.90559846}
+  m_LocalPosition: {x: 0, y: 11.99896, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -628,8 +676,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416673876}
-  m_LocalRotation: {x: 0.42414817, y: 0.0000000106152225, z: -0.000000004971802, w: 0.90559286}
-  m_LocalPosition: {x: 0, y: 11.99961, z: -10}
+  m_LocalRotation: {x: 0.42413607, y: 0.000000015582074, z: -0.000000007297848, w: 0.90559846}
+  m_LocalPosition: {x: 0, y: 11.99896, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -658,7 +706,7 @@ PrefabInstance:
     - target: {fileID: 577455998998177316, guid: 4e5d53fc36d315646af59970ef6830a8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.03
+      value: 3.97
       objectReference: {fileID: 0}
     - target: {fileID: 577455998998177316, guid: 4e5d53fc36d315646af59970ef6830a8,
         type: 3}
@@ -704,6 +752,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8715372227139868142, guid: 4e5d53fc36d315646af59970ef6830a8,
+        type: 3}
+      propertyPath: maxMoveDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -948,7 +1001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 11.99961, z: -10}
+  m_FollowOffset: {x: 0, y: 11.99896, z: -10}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -1168,6 +1221,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8715372227139868142, guid: 4e5d53fc36d315646af59970ef6830a8,
+        type: 3}
+      propertyPath: maxMoveDistance
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

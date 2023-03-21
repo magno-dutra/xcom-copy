@@ -24,6 +24,15 @@ public class UnitActionSystemUI : MonoBehaviour
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
 
+        // Esse código poderia rodar antes de outro script que faz uso da unidade selecionada
+        // se isso ocorrer quando ele tentar pegar o número de ações, daria erro ou seria 0.
+        // Para solucionar isso criamos um evento statico em cada unidade mas também poderia
+        // Mudar a ordem de execução dos scripts.
+        //
+        //TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+
+        Unit.OnAnyActionPointsChanged += Unit_OnAnyActionPointsChanged;
+
         UpdateActionPoints();
         CreateUnitActionButtons();
         UpdateSelectedVisual();
@@ -49,6 +58,16 @@ public class UnitActionSystemUI : MonoBehaviour
         }
     }
 
+    private void Unit_OnAnyActionPointsChanged(object sender, EventArgs e)
+    {
+        UpdateActionPoints();
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        UpdateActionPoints();
+    }
+
     private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
     {
         CreateUnitActionButtons();
@@ -65,6 +84,8 @@ public class UnitActionSystemUI : MonoBehaviour
     {
         UpdateActionPoints();
     }
+
+
 
     private void UpdateSelectedVisual()
     {

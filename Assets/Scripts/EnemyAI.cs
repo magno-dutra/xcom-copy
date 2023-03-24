@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -39,7 +40,6 @@ public class EnemyAI : MonoBehaviour
 
                 if (timer <= 0)
                 {
-                    state = State.Busy;
                     if (TryTakeEnemyAIAction(SetStateTakingTurn))
                     {
                         state = State.Busy;
@@ -52,11 +52,7 @@ public class EnemyAI : MonoBehaviour
                 break;
             case State.Busy:
                 break;
-            default:
-                break;
         }
-
-
     }
 
     private void SetStateTakingTurn()
@@ -76,36 +72,46 @@ public class EnemyAI : MonoBehaviour
 
     private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete)
     {
-        Debug.Log("take enemy ai action");
         foreach (Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList())
         {
-            if(TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
+            if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
                 return true;
         }
-
         return false;
     }
 
     private bool TryTakeEnemyAIAction(Unit enemyUnit, Action onEnemyAIActionComplete)
     {
-        SpinAction spinAction = enemyUnit.GetSpinAction();
-
-
-        GridPosition actionGridPosition = enemyUnit.GetGridPosition();
-
-        if (spinAction.IsValidActionGridPosition(actionGridPosition))
+        EnemyAIAction bestEnemyAIAction = null;
+        BaseAction bestBaseAction = null;
+        foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
         {
-            if (enemyUnit.TrySpendActionPointsToTakeAction(spinAction))
+            if(!enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
             {
-                Debug.Log("spinning");
-                spinAction.TakeAction(actionGridPosition, onEnemyAIActionComplete);
-                return true;
+                //Se não tiver pontos para usar essa ação vai p/ próxima
+                continue;
+            }
+
+            if(bestEnemyAIAction== null)
+            {
+                bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
+                bestBaseAction = baseAction;
             }
             else
             {
-                return false;
+                EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
+                if(testEnemyAIAction != null && testEnemyAIAction.actionValue > bestEnemyAIAction.actionValue)
+                {
+                    bestEnemyAIAction = testEnemyAIAction;
+                    bestBaseAction = baseAction;
+                }
             }
+        }
 
+        if(bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction))
+        {
+            bestBaseAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
+            return true;
         }
         else
         {
